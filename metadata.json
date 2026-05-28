@@ -1,0 +1,6 @@
+{
+  "name": "Ranveer Singh Portfolio",
+  "description": "A premium, cinematic portfolio website for Ranveer Singh, B.Tech CE (AI/ML) student, featuring custom cursor, rich interactive timelines, and a glassmorphism dark theme.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
