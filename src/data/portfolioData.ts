@@ -1,30 +1,30 @@
 export const personalInfo = {
   name: "Ranveer Singh",
-  role: "B.Tech 1st Year CE (AI/ML) Student",
+  role: "AI/ML Engineering Student",
   phone: "7275408209",
   email: "singhranveer81365@gmail.com",
-  location: "Meghaninagar Ahmedabad",
+  location: "Ahmedabad, India",
   avatarImage: new URL("../assets/images/ranveer_portfolio_avatar.png", import.meta.url).href
 };
 
-export const aboutText = "A motivated B.TECH first-year student with a strong interest in engineering fundamentals and problem-solving. Currently building a solid foundation in programming, core technical subjects and analytical thinking. Eager to learn new technologies, work in collaborative environments and apply theoretical knowledge to real-world challenges.";
+export const aboutText = "Building a strong base in programming, AI/ML concepts, and analytical problem solving through focused engineering study and hands-on campus work.";
 
 export const educationList = [
   {
     institution: "Silver Oak University",
     degree: "Bachelor of Technology",
-    period: "2025–2029",
+    period: "2025-2029",
     field: "CE(AI/ML)"
   },
   {
     institution: "RDBMSS Dhaurahara",
-    degree: "Intermediate — 75%",
+    degree: "Intermediate - 75%",
     period: "2025",
     field: "Science Stream"
   },
   {
     institution: "Ishan Public School",
-    degree: "High School — 76.8%",
+    degree: "High School - 76.8%",
     period: "2022",
     field: "General"
   }
@@ -34,20 +34,20 @@ export const experienceList = [
   {
     organization: "IEEE",
     role: "Vice Chairperson of Management Committee IEEE SOU SB",
-    period: "2025–Now",
-    description: "As a IEEE member I learned many useful skills like leadership, communication, technical and management skill"
+    period: "2025-Now",
+    description: "Supporting committee coordination while strengthening leadership, communication, and management discipline."
   },
   {
     organization: "AWS Cloud Club",
     role: "Member",
-    period: "2025–Now",
-    description: "After becoming a member of the AWS Cloud Club, I volunteered as a Management Volunteer at AWS Student Community Day, where I gained valuable insights into event planning, coordination, and execution."
+    period: "2025-Now",
+    description: "Volunteered at AWS Student Community Day, contributing to event planning, coordination, and execution."
   },
   {
     organization: "GDG",
     role: "Member",
-    period: "2025–Now",
-    description: "After becoming a member of the GDG I volunteered as a Management Volunteer at Autonomous hacks 2026"
+    period: "2025-Now",
+    description: "Volunteered for Autonomous Hacks 2026, supporting management operations and team coordination."
   }
 ];
 
@@ -65,5 +65,5 @@ export const socialLinks = {
   github: "https://github.com",
   facebook: "",
   twitter: "",
-  email: "mailto:singhranveer81365@gmail.com",
+  email: "mailto:singhranveer81365@gmail.com"
 };

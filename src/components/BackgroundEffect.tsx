@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 
 export default function BackgroundEffect() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -53,17 +55,56 @@ export default function BackgroundEffect() {
     };
   }, []);
 
+  useEffect(() => {
+    const grid = gridRef.current;
+    const glow = glowRef.current;
+    if (!grid || !glow) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const pointer = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
+    let raf = 0;
+
+    const handlePointerMove = (event: PointerEvent) => {
+      pointer.x = (event.clientX / window.innerWidth - 0.5) * 2;
+      pointer.y = (event.clientY / window.innerHeight - 0.5) * 2;
+    };
+
+    const animate = () => {
+      current.x += (pointer.x - current.x) * 0.055;
+      current.y += (pointer.y - current.y) * 0.055;
+
+      grid.style.transform = `translate3d(${current.x * 7}px, ${current.y * 7}px, 0)`;
+      glow.style.transform = `translate3d(${current.x * -14}px, ${current.y * -10}px, 0)`;
+
+      raf = window.requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    raf = window.requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <>
-      {/* Noise texture overlay */}
-      <div className="noise-overlay" style={{ opacity: 0.015 }} />
-      {/* Custom grid-overlay */}
-      <div className="grid-overlay" />
-      <canvas
-        id="bg-canvas"
-        ref={canvasRef}
-        className="fixed top-0 left-0 w-screen h-screen -z-50 pointer-events-none"
-      />
-    </>
+  <div className="noise-overlay" style={{ opacity: 0.015 }} />
+  <div ref={gridRef} className="grid-overlay" />
+  <div ref={glowRef} className="ambient-blueprint-glow" />
+
+  {/* Luxury White Light Sweep */}
+  <div className="light-sweep" />
+
+  <canvas
+    id="bg-canvas"
+    ref={canvasRef}
+    className="fixed top-0 left-0 w-screen h-screen -z-50 pointer-events-none"
+  />
+</>
   );
 }

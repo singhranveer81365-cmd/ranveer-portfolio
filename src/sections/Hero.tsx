@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "motion/react";
+import React, { useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, Mail, FileText, MapPin, Sparkles } from "lucide-react";
 import { personalInfo } from "../data/portfolioData";
 
@@ -9,11 +9,45 @@ interface HeroProps {
 }
 
 export default function Hero({ onContactClick, onResumeClick }: HeroProps) {
+  const glowRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const glow = glowRef.current;
+    if (!glow || shouldReduceMotion) return;
+
+    const target = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.42 };
+    const current = { ...target };
+    let raf = 0;
+
+    const handlePointerMove = (event: PointerEvent) => {
+      target.x = event.clientX;
+      target.y = event.clientY;
+    };
+
+    const animate = () => {
+      current.x += (target.x - current.x) * 0.045;
+      current.y += (target.y - current.y) * 0.045;
+      glow.style.transform = `translate3d(${current.x - 260}px, ${current.y - 260}px, 0)`;
+      raf = window.requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    raf = window.requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.cancelAnimationFrame(raf);
+    };
+  }, [shouldReduceMotion]);
+
   return (
     <section
       id="hero"
       className="relative min-h-screen flex flex-col justify-center items-center px-6 lg:px-12 py-24 select-none overflow-hidden"
     >
+      <div ref={glowRef} className="hero-cursor-glow" aria-hidden="true" />
+
       {/* Absolute Glow Spotlights */}
       <div className="absolute top-[20%] left-[20%] w-[150px] md:w-[350px] h-[150px] md:h-[350px] bg-accent-blue/10 rounded-full blur-[80px] md:blur-[140px] pointer-events-none" />
       <div className="absolute bottom-[10%] right-[10%] w-[120px] md:w-[250px] h-[120px] md:h-[250px] bg-white/5 rounded-full blur-[60px] md:blur-[100px] pointer-events-none" />

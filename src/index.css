@@ -123,6 +123,65 @@ body {
   background-size: 40px 40px;
   pointer-events: none;
   z-index: -49;
+  will-change: transform, background-position;
+  animation: blueprint-grid-drift 38s linear infinite;
+}
+
+.ambient-blueprint-glow {
+  position: fixed;
+  inset: -18%;
+  pointer-events: none;
+  z-index: -48;
+  opacity: 0.38;
+  background:
+    radial-gradient(circle at 18% 28%, rgba(77, 168, 255, 0.055), transparent 28%),
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.035), transparent 24%),
+    radial-gradient(circle at 62% 78%, rgba(77, 168, 255, 0.04), transparent 30%);
+  filter: blur(58px);
+  will-change: transform;
+  animation: ambient-glow-drift 32s ease-in-out infinite alternate;
+}
+
+.hero-cursor-glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 520px;
+  height: 520px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(77, 168, 255, 0.08), rgba(255, 255, 255, 0.025) 38%, transparent 68%);
+  filter: blur(72px);
+  opacity: 0.55;
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+
+@keyframes blueprint-grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 40px 40px, 40px 40px; }
+}
+
+@keyframes ambient-glow-drift {
+  0% { transform: translate3d(-1%, -0.5%, 0) scale(1); }
+  100% { transform: translate3d(1%, 0.75%, 0) scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .grid-overlay,
+  .ambient-blueprint-glow,
+  .hero-cursor-glow {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 /* Selection */

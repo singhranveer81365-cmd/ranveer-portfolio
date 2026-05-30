@@ -1,35 +1,9 @@
 import React from "react";
-import { motion } from "motion/react";
 import { aboutText } from "../data/portfolioData";
-import { ShieldAlert, BookOpen, Fingerprint } from "lucide-react";
+import { BookOpen, Fingerprint } from "lucide-react";
+import SectionReveal from "../components/SectionReveal";
 
 export default function About() {
-  // Stagger words for premium cinematic reveal
-  const words = aboutText.split(" ");
-
-  const containerVars = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.015,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const wordVars = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-      },
-    },
-  };
-
   return (
     <section
       id="about"
@@ -38,7 +12,7 @@ export default function About() {
       {/* Background Soft Spotlight */}
       <div className="absolute top-[50%] left-[5%] w-[300px] h-[300px] bg-accent-blue/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+      <SectionReveal className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
         
         {/* Left Side: Animated Section Code and Title */}
         <div className="lg:col-span-4 flex flex-col space-y-6 text-left">
@@ -68,23 +42,9 @@ export default function About() {
 
         {/* Right Side: Exact Text Stagger Reveal */}
         <div className="lg:col-span-8 space-y-8">
-          <motion.div
-            variants={containerVars}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-lg sm:text-xl md:text-2xl font-sans font-light text-[#BFC0C0] leading-relaxed tracking-wide text-left"
-          >
-            {words.map((word, idx) => (
-              <motion.span
-                key={idx}
-                variants={wordVars}
-                className="inline-block mr-[0.3em]"
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.div>
+          <p className="text-lg sm:text-xl md:text-2xl font-sans font-light text-[#BFC0C0] leading-relaxed tracking-wide text-left">
+            {aboutText}
+          </p>
 
           {/* Core Values Badge Area */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/[0.04]">
@@ -111,7 +71,7 @@ export default function About() {
           </div>
         </div>
         
-      </div>
+      </SectionReveal>
     </section>
   );
 }
