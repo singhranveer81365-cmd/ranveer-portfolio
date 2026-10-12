@@ -135,7 +135,11 @@ function defaultRow(fields: Field[], section: "projects" | "experiences" | "skil
   return result;
 }
 
-function isContentSection(section: Section): section is "projects" | "experiences" | "skills" {\n  return section === "projects" || section === "experiences" || section === "skills";\n}\n\nfunction displayTitle(row: AdminRow, section: Section) {
+function isContentSection(section: Section): section is "projects" | "experiences" | "skills" {
+  return section === "projects" || section === "experiences" || section === "skills";
+}
+
+function displayTitle(row: AdminRow, section: Section) {
   if (section === "projects") return row.title || row.slug || "Untitled project";
   if (section === "experiences") return row.role || row.organisation || "Experience";
   if (section === "skills") return row.name || "Skill";
