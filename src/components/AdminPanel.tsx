@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import type { FormEvent } from "react";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
@@ -120,15 +121,15 @@ function normaliseRow(row: AdminRow, fields: Field[]) {
   return result;
 }
 
-function defaultRow(fields: Field[]) {
+function defaultRow(fields: Field[], section: "projects" | "experiences" | "skills") {
   const result: Record<string, string | boolean | number> = {};
   for (const field of fields) {
-    if (field.type === "boolean") result[field.name] = field.name === "is_published" && field.name === "skills";
+    if (field.type === "boolean") result[field.name] = false;
     else if (field.type === "number") result[field.name] = 0;
     else result[field.name] = "";
   }
   // New projects and experience are drafts until explicitly published.
-  if (fields.some((field) => field.name === "is_published")) result.is_published = false;
+  if (fields.some((field) => field.name === "is_published")) result.is_published = section === "skills";
   if (fields.some((field) => field.name === "featured")) result.featured = false;
   if (fields.some((field) => field.name === "tech_stack")) result.tech_stack = "";
   return result;
@@ -210,7 +211,7 @@ export default function AdminPanel() {
     [rows],
   );
 
-  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+  async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitting(true);
     setError("");
@@ -246,7 +247,7 @@ export default function AdminPanel() {
     setError("");
     setNotice("");
     setEditingId(null);
-    setFormData(defaultRow(fields));
+    setFormData(defaultRow(fields, section));
     setEditorOpen(true);
   }
 
