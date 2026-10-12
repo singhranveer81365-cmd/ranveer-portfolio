@@ -1,10 +1,24 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, useLocation } from "react-router-dom";
+import App from "./App.tsx";
+import AdminPanel from "./components/AdminPanel.tsx";
+import "./index.css";
 
-createRoot(document.getElementById('root')!).render(
+function AppRouter() {
+  const { pathname } = useLocation();
+
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    return <AdminPanel />;
+  }
+
+  return <App />;
+}
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   </StrictMode>,
 );
