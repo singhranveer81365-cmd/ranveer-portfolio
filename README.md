@@ -206,3 +206,14 @@ npx gh-pages -d dist
 
 If you want, I can add a ready-to-use GitHub Action or a `deploy` npm script that runs `gh-pages` for you.
 
+## Portfolio Admin Panel (in progress)
+
+The admin foundation is available on the `feature/portfolio-admin-foundation` branch. It adds a private dashboard route at `/admin` and a separate Express + PostgreSQL API in `server/`.
+
+- Backend setup and deployment: [server/README.md](server/README.md)
+- PostgreSQL tables: [server/db/schema.sql](server/db/schema.sql)
+- Architecture and phased plan: [docs/ADMIN_PANEL_PLAN.md](docs/ADMIN_PANEL_PLAN.md)
+
+The new API supports session-based administrator login and CRUD operations for projects, experience and skills. It also includes a contact-message inbox endpoint and JSON site settings. The public website still uses its existing static portfolio data; connecting the public sections to the database and deploying the API are follow-up steps.
+
+**Important:** apply the SQL schema to your PostgreSQL database, install the independent backend dependencies from the `server/` directory, set `DATABASE_URL` and a unique `SESSION_SECRET` on the server, then bootstrap an admin account with `ADMIN_EMAIL` and `ADMIN_PASSWORD`. Do not put database credentials or the session secret in any `VITE_*` variable.
