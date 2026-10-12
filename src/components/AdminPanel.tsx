@@ -261,7 +261,7 @@ export default function AdminPanel() {
 
   async function saveRecord(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!contentSection) return;
+    if (!isContentSection(section)) return;
     setSubmitting(true);
     setError("");
     setNotice("");
