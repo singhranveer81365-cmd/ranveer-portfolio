@@ -135,7 +135,7 @@ function defaultRow(fields: Field[], section: "projects" | "experiences" | "skil
   return result;
 }
 
-function displayTitle(row: AdminRow, section: Section) {
+function isContentSection(section: Section): section is "projects" | "experiences" | "skills" {\n  return section === "projects" || section === "experiences" || section === "skills";\n}\n\nfunction displayTitle(row: AdminRow, section: Section) {
   if (section === "projects") return row.title || row.slug || "Untitled project";
   if (section === "experiences") return row.role || row.organisation || "Experience";
   if (section === "skills") return row.name || "Skill";
@@ -204,7 +204,7 @@ export default function AdminPanel() {
     };
   }, [admin, section, refreshTick]);
 
-  const contentSection = section === "projects" || section === "experiences" || section === "skills";
+  const contentSection = isContentSection(section);
   const fields = contentSection ? fieldSets[section] : [];
   const visibleCount = useMemo(
     () => rows.filter((row) => row.is_published === true).length,
@@ -259,7 +259,7 @@ export default function AdminPanel() {
     setEditorOpen(true);
   }
 
-  async function saveRecord(event: React.FormEvent<HTMLFormElement>) {
+  async function saveRecord(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!contentSection) return;
     setSubmitting(true);
@@ -319,7 +319,7 @@ export default function AdminPanel() {
     }
   }
 
-  async function saveSetting(event: React.FormEvent<HTMLFormElement>) {
+  async function saveSetting(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitting(true);
     setError("");
