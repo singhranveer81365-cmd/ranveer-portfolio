@@ -248,6 +248,7 @@ export default function AdminPanel() {
   }
 
   function openCreateEditor() {
+    if (!isContentSection(section)) return;
     setError("");
     setNotice("");
     setEditingId(null);
@@ -256,6 +257,7 @@ export default function AdminPanel() {
   }
 
   function openEditEditor(row: AdminRow) {
+    if (!isContentSection(section)) return;
     setError("");
     setNotice("");
     setEditingId(row.id ?? null);
